@@ -107,7 +107,7 @@ sudo update-rc.d minecraft-grub defaults
 # Notes:
 - the `GRUB_TIMEOUT_STYLE` in the defaults/grub file should be set to `menu`, so it immediately shows the menu (else you would need to press ESC and you dont want that)
 - I'm no Linux expert, that's why I explain it so thoroughly, for other newbies :>
-- i use arch btw
+- i use openSUSE btw
 - i hope u like it, cause i sure do lmao
 
 ### Thanks to
