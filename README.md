@@ -1,3 +1,11 @@
+**The Minecraft Grub Theme Trio:**
+
+| *> Minecraft Main Menu <* | [Minecraft World Selection Menu](https://github.com/Lxtharia/minegrub-world-sel-theme) | [Using both themes together](https://github.com/Lxtharia/double-minegrub-menu) |
+| --- | --- | --- |
+
+There is also a [Spanish translation](https://github.com/FeRChImoNdE/minegrub-theme-es) now!
+
+
 # Minegrub
 A Grub Theme in the style of Minecraft!
 
@@ -16,6 +24,9 @@ A Grub Theme in the style of Minecraft!
 git clone https://github.com/Lxtharia/minegrub-theme.git
 ```
 - (optional) Choose a background
+```
+./choose-background.sh  # or just copy a custom image to minegrub/background.png
+```
   - If you want to use the update script, copy an arbitrary number of images you would like to use to `minegrub/backgrounds/`. You can find some options in `background_options/` but you can also use your own images.
   - If you do not want to use the update script or if you always want to use the same background, you can use `./choose-background.sh` or just copy a custom image to `minegrub/background.png`
 
@@ -24,7 +35,7 @@ git clone https://github.com/Lxtharia/minegrub-theme.git
 cd ./minegrub-theme
 sudo cp -ruv ./minegrub /boot/grub/themes/
 ```
-- Change/add this line in your `/etc/default/grub`:
+- Open `/etc/default/grub` with your text editor and change/uncommon this line:
 ```
 GRUB_THEME=/boot/grub/themes/minegrub/theme.txt
 ```
@@ -48,7 +59,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
     nixosConfigurations.HOSTNAME = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
-        inputs.minegrub.nixosModules.default
+        inputs.minegrub-theme.nixosModules.default
       ];
     };
   }
@@ -61,6 +72,8 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
     minegrub-theme = {
       enable = true;
       splash = "100% Flakes!";
+      background = "background_options/1.8  - [Classic Minecraft]";
+      boot-options-count = 4;
     };
     # ...
   };
@@ -76,13 +89,13 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Random splash texts and accurate "x Packages Installed" text!
 The `update_theme.py` script chooses a random line from `assets/splashes.txt` and generates and replaces the `logo.png` which holds the splash text, as well as updates the amount of packages currently installed. It also randomly chooses a file from `backgrounds/` (ignoring hidden files beginning with a dot) as the background image.
-- Make sure `neofetch` is installed
+- Make sure `fastfetch` or `neofetch` is installed
 - Make sure Python 3 (or an equivalent) and the Pillow python package are installed
   - Install Pillow either with the python-pillow package from the AUR or with
     `sudo -H pip3 install pillow`
   - It's important to use `sudo -H`, because it needs to be available for the root user
 - To add new splash texts simply edit `./minegrub/assets/splashes.txt` and add them to the file.
-- Put all backgrounds you want to randomly choose from in `./minegrub/backgrounds/`. Filenames beginning with `_` will be ignored. You can also add your own images.
+- Put all backgrounds you want to randomly choose from in `./minegrub/backgrounds/`. Hidden files (i.e. filenames beginning with a dot) will be ignored. You can also add your own images.
 - If you want to get a specific splash and/or background for the next boot, run `python update_theme.py [BACKGROUND_FILE [SPLASH]]`, e.g. `python update_theme.py 'backgrounds/1.15 - [Buzzy Bees].png' 'Splashing!'`
   - Empty string parameters will be replaced by a random choice, e.g. `python update_theme.py '' 'Splashing!'` for a random background and the splash `Splashing!`.
 
